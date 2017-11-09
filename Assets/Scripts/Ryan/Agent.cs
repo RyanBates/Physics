@@ -13,7 +13,7 @@ namespace Ryan
 
         public Vector3 velocity, position;
 
-        public abstract Vector3 Update_Agent();
+        public abstract Vector3 Update_Agent(float deltaTime);
 
         public abstract bool AddForce(float a, Vector3 b);
     }
