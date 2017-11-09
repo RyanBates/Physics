@@ -14,9 +14,7 @@ public abstract class AgentBehaviour : MonoBehaviour
     public void Create()
     {
         agents = new List<Ryan.Agent>();
-        agentBehaviour = new List<AgentBehaviour>();
-
-        
+        agentBehaviour = new List<AgentBehaviour>();        
     }
 
 

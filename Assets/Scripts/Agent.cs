@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace Ryan
 {
-    [CreateAssetMenu]
     public abstract class Agent : ScriptableObject
     {
-        public float mass, acceleration, max_speed;
+        public float mass = 1, acceleration = 0, max_speed = 50;
 
         public Vector3 seperation, alignment, cohesion;
 
