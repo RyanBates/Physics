@@ -5,11 +5,11 @@ using UnityEngine;
 public abstract class AgentBehaviour : Boid
 {
     public Ryan.Agent agent;
-    public List<AgentBehaviour> agentBehaviour;
+    public List<GameObject> agentBehaviour;
 
     public void Create()
     {
-        agentBehaviour = new List<AgentBehaviour>();
+        agentBehaviour = new List<GameObject>();
     }
     
     public void Destory()

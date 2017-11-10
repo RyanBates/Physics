@@ -15,9 +15,15 @@ public class Boid : Ryan.Agent
         return Update_Agent(deltaTime);
     }
 
-    public void Initialize()
+    public void Initialize(int count)
     {
+        for(int i = 0; i <= count; i++)
+        {
+            var go = new GameObject();
+            
+            Instantiate(go, go.transform.position, Quaternion.identity, go.transform);
 
+        }
     }
 }
     

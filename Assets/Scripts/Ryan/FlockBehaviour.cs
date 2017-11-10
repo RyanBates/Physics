@@ -7,51 +7,59 @@ public interface IFlockable
     Vector3 Cohesion(Boid b);
 }
 
-public class FlockBehaviour : MonoBehaviour, IFlockable
+public class FlockBehaviour : BoidBehaviour//, IFlockable
 {
     Ryan.Agent agent;
-    AgentBehaviour AB;
+    BoidBehaviour BB;
 
-    public Vector3 Cohesion(Boid b)
-    {
-        foreach (Boid B in AB.agentBehaviour)
-            if (b != B)
-                b.cohesion = b.cohesion + b.position;
+    //public Vector3 Cohesion(Boid b)
+    //{
+    //    foreach (Boid B in AB.agentBehaviour)
+    //        if (b != B)
+    //        {
+    //            b.cohesion = b.cohesion + b.position;
+    //            BB.SetAgent(b);
+    //        }
+    //    return (b.cohesion - b.position) / 100;
+    //}
 
-        return (b.cohesion - b.position) / 100;
-    }
+    //public Vector3 Dispersion(Boid b)
+    //{
+    //    foreach (Boid B in AB.agentBehaviour)
+    //        if (b.position.x - B.position.x < 1 || b.position.y - B.position.y < 1 || b.position.z - B.position.z < 1)
+    //        {
+    //            b.seperation = b.seperation - (b.position - B.position);
+    //            BB.SetAgent(b);
+    //        }
+    //    return b.seperation;
+    //}
 
-    public Vector3 Dispersion(Boid b)
-    {
-        foreach (Boid B in AB.agentBehaviour)
-            if (b.position == B.position)
-                b.seperation = b.seperation - (b.position - B.position);
+    //public Vector3 Alignment(Boid b)
+    //{
+    //    foreach (Boid B in AB.agentBehaviour)
+    //        if (b != B)
+    //        {
+    //            b.alignment = b.alignment + b.velocity;
+    //            BB.SetAgent(b);
+    //        }
 
-        return b.seperation;
-    }
+    //    return (b.alignment - b.velocity) / 8;
+    //}
 
-    public Vector3 Alignment(Boid b)
-    {
-        foreach (Boid B in AB.agentBehaviour)
-            if (b != B)
-                b.alignment = b.alignment + b.velocity;
+    //void Update()
+    //{
+    //    Vector3 v1, v2, v3;
 
-        return (b.alignment - b.velocity) / 8;
-    }
+    //    foreach (Boid b in AB.agentBehaviour)
+    //    {
+    //        BB.SetAgent(b);
 
-    void Update()
-    {
-        Vector3 v1, v2, v3;
+    //        v1 = Cohesion(b);
+    //        v2 = Dispersion(b);
+    //        v3 = Alignment(b);
 
-        foreach (Boid b in AB.agentBehaviour)
-        {
-            v1 = Cohesion(b);
-            v2 = Dispersion(b);
-            v3 = Alignment(b);
-
-            b.velocity = b.velocity + v1 + v2 + v3;
-            b.position = b.position + b.velocity;
-        }
-
-    }
+    //        b.velocity = b.velocity + v1 + v2 + v3;
+    //        b.position = b.position + b.velocity;
+    //    }
+    //}
 }

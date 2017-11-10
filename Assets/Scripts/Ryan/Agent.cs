@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Ryan
 {
-    public abstract class Agent : ScriptableObject
+    public abstract class Agent : MonoBehaviour
     {
         public float mass = 1, acceleration = 0, max_speed = 50;
 
