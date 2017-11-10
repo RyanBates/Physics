@@ -1,30 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+
+public interface IMoveable
+{
+    Vector3 Update_Agent(float dt);
+    bool AddForce(float a, Vector3 b);
+}
 
 [CreateAssetMenu]
-public class Boid : Ryan.Agent
+public class Boid : Ryan.Agent, IMoveable
 {
-    public override bool AddForce(float a, Vector3 b)
+    Spawn s;
+    public GameObject go;
+
+
+    public Vector3 Update_Agent(float deltaTime)
+    {
+        acceleration = force / mass;
+        velocity += acceleration * deltaTime;
+        velocity = Vector3.ClampMagnitude(velocity, max_speed);
+        position += velocity * deltaTime;
+
+        return position;
+    }
+
+    public bool AddForce(float a, Vector3 b)
     {
         return AddForce(2, new Vector3(1, 0, 1));
     }
 
-    public override Vector3 Update_Agent(float deltaTime)
+    public override Vector3 Velocity()
     {
-        return Update_Agent(deltaTime);
-    }
 
-    public void Initialize(int count)
-    {
-        for(int i = 0; i <= count; i++)
-        {
-            var go = new GameObject();
-            
-            Instantiate(go, go.transform.position, Quaternion.identity, go.transform);
-
-        }
+        return velocity;
     }
 }
-    
-

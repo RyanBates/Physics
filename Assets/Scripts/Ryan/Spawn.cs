@@ -2,22 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawn : Center
+public class Spawn : FlockBehaviour
 {
+    public GameObject Target;
     public GameObject Agent;
+    Ryan.Agent age;
+    AgentBehaviour AB;
+
+    public float mass, acceleration, max_speed;
 
     // Use this for initialization
-    void Start () {
-		
-	}
+ //   void Start ()
+ //   {
+ //       mass = age.mass;
+ //       acceleration = age.acceleration;
+ //       max_speed = age.max_speed;
+
+ //       age.position = transform.position;
+ //	}
 	
 	// Update is called once per frame
 	void Update ()
-    {
-        if (Input.GetKey(KeyCode.Mouse0))
+    { 
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Instantiate(Agent, new Vector3(1+Input.mousePosition.x, 1+Input.mousePosition.y, 1+Input.mousePosition.z), Quaternion.identity, target.transform);
-            AB.agentBehaviour.Add(Agent);
+            Instantiate(Agent, new Vector3(Target.transform.position.x + 2, Target.transform.position.y + 2, Target.transform.position.z + 2), Quaternion.identity, Target.transform);
         }
     }
 }

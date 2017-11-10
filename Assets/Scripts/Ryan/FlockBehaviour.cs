@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public interface IFlockable
 {
@@ -7,59 +8,73 @@ public interface IFlockable
     Vector3 Cohesion(Boid b);
 }
 
-public class FlockBehaviour : BoidBehaviour//, IFlockable
+public class FlockBehaviour : MonoBehaviour, IFlockable
 {
-    Ryan.Agent agent;
     BoidBehaviour BB;
 
-    //public Vector3 Cohesion(Boid b)
-    //{
-    //    foreach (Boid B in AB.agentBehaviour)
-    //        if (b != B)
-    //        {
-    //            b.cohesion = b.cohesion + b.position;
-    //            BB.SetAgent(b);
-    //        }
-    //    return (b.cohesion - b.position) / 100;
-    //}
+    List<Boid> Boids;
 
-    //public Vector3 Dispersion(Boid b)
-    //{
-    //    foreach (Boid B in AB.agentBehaviour)
-    //        if (b.position.x - B.position.x < 1 || b.position.y - B.position.y < 1 || b.position.z - B.position.z < 1)
-    //        {
-    //            b.seperation = b.seperation - (b.position - B.position);
-    //            BB.SetAgent(b);
-    //        }
-    //    return b.seperation;
-    //}
 
-    //public Vector3 Alignment(Boid b)
-    //{
-    //    foreach (Boid B in AB.agentBehaviour)
-    //        if (b != B)
-    //        {
-    //            b.alignment = b.alignment + b.velocity;
-    //            BB.SetAgent(b);
-    //        }
+    float kCohesion;
+    float kDispersion;
+    float kAlignment;
 
-    //    return (b.alignment - b.velocity) / 8;
-    //}
+    public Vector3 Cohesion(Boid b)
+    {
+        foreach (Boid B in Boids)
+            if (b != B)
+            {
+                b.cohesion = b.cohesion + b.position;
+                BB.SetMoveable(b);
+            }
+        return (b.cohesion - b.position) / 100;
+    }
 
-    //void Update()
-    //{
-    //    Vector3 v1, v2, v3;
+    public Vector3 Dispersion(Boid b)
+    {
+        foreach (Boid B in Boids)
+            if (b.position.x - B.position.x < 1 || b.position.y - B.position.y < 1 || b.position.z - B.position.z < 1)
+            {
+                b.seperation = b.seperation - (b.position - B.position);
+                BB.SetMoveable(b);
+            }
+        return b.seperation;
+    }
 
-    //    foreach (Boid b in AB.agentBehaviour)
-    //    {
-    //        BB.SetAgent(b);
+    public Vector3 Alignment(Boid b)
+    {
+        foreach (Boid B in Boids)
+            if (b != B)
+            {
+                b.alignment = b.alignment + b.velocity;
+                BB.SetMoveable(b);
+            }
 
-    //        v1 = Cohesion(b);
-    //        v2 = Dispersion(b);
-    //        v3 = Alignment(b);
+        return (b.alignment - b.velocity) / 8;
+    }
 
-    //        b.velocity = b.velocity + v1 + v2 + v3;
-    //        b.position = b.position + b.velocity;
-    //    }
-    //}
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+        AgentFactory.GetBoids(Boids);
+
+        Vector3 v1, v2, v3;
+
+        foreach (Boid b in Boids)
+        {
+            BB.SetMoveable(b);
+
+            v1 = Cohesion(b);
+            v2 = Dispersion(b);
+            v3 = Alignment(b);
+
+            b.velocity = b.velocity + v1 + v2 + v3;
+            b.position = b.position + b.velocity;
+        }
+
+    }
 }

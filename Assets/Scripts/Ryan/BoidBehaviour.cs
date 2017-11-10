@@ -1,18 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class BoidBehaviour : MonoBehaviour
+public class BoidBehaviour : AgentBehaviour
 {
     protected AgentBehaviour AB;
     protected Boid b;
 
-    public void SetAgent(Boid b)
+    IMoveable moveable;
+
+    public void SetMoveable(IMoveable mover)
     {
-        AB.agent = b;
-        ((Boid)AB.agent).Initialize(10);
+        moveable = mover;
     }
-    
+
     private void LateUpdate()
     {
-        transform.position = AB.agent.Update_Agent(Time.deltaTime);
+        transform.position = moveable.Update_Agent(Time.deltaTime);
     }
 }
