@@ -12,7 +12,7 @@ public class FlockBehaviour : MonoBehaviour, IFlockable
 {
     BoidBehaviour BB;
 
-    List<Boid> Boids;
+    public List<Boid> Boids;
 
 
     float kCohesion;

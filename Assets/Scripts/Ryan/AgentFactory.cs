@@ -6,6 +6,14 @@ public class AgentFactory : MonoBehaviour
 {
     static public List<Ryan.Agent> agents;
 
+    static public List<Boid> GetBoids(List<Boid> results)
+    {
+        foreach (Boid B in agents)
+            results.Add(B);
+
+        return results;
+    }
+
     public void Initialize(int count)
     {
         for (int i = 0; i <= count; i++)
@@ -21,11 +29,4 @@ public class AgentFactory : MonoBehaviour
             bb.SetMoveable(boid);
         }
     }
-    
-    static public void GetBoids(List<Boid> results)
-    {
-        foreach (Boid B in agents)
-            results.Add(B);
-    }
-
 }

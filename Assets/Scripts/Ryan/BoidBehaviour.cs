@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class BoidBehaviour : AgentBehaviour
 {
-    protected AgentBehaviour AB;
-    protected Boid b;
-
     IMoveable moveable;
 
     public void SetMoveable(IMoveable mover)
