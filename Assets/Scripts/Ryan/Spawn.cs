@@ -2,17 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawn : FlockBehaviour
+public class Spawn : MonoBehaviour
 {
-    public GameObject Target;
-    public GameObject Agent;
-    
+    public GameObject agent;
 
-	void Update ()
-    { 
+    AgentFactory AF;
+
+    void Update ()
+    {
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            Instantiate(Agent, new Vector3(Target.transform.position.x + 2, Target.transform.position.y + 2, Target.transform.position.z + 2), Quaternion.identity, Target.transform);
+            var go = Instantiate(agent, 
+                new Vector3(Random.Range(-15, 15),
+                Random.Range(-15, 15), 
+                Random.Range(-15, 15)), 
+                Quaternion.identity);
+
+            var bb = go.AddComponent<BoidBehaviour>();
+
+            var boid = ScriptableObject.CreateInstance<Boid>();
+
+            AF.agents.Add(boid);
+
+            bb.SetMoveable(boid);
         }
     }
 }

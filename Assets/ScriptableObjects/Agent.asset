@@ -20,4 +20,3 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   force: {x: 0, y: 0, z: 0}
   position: {x: 0, y: 0, z: 0}
-  go: {fileID: 1125547293973344, guid: 9f2785765857e03409e7dad57b47aabf, type: 2}

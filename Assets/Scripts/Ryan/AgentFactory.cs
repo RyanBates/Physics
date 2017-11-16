@@ -4,29 +4,44 @@ using UnityEngine;
 
 public class AgentFactory : MonoBehaviour
 {
-    static public List<Ryan.Agent> agents;
+    public GameObject agent;    
 
-    static public List<Boid> GetBoids(List<Boid> results)
+    public List<Ryan.Agent> agents;
+    
+    public void Create(int count)
     {
+        for (int i = 0; i <= count; ++i)
+        {
+            var go = Instantiate(agent,
+                new Vector3(Random.Range(-15, 15),
+                Random.Range(-15, 15),
+                Random.Range(-15, 15)),
+                Quaternion.identity);
+
+            var bb = go.AddComponent<BoidBehaviour>();
+
+            var boid = ScriptableObject.CreateInstance<Boid>();
+            
+            agents.Add(boid);
+
+            bb.SetMoveable(boid);
+        }
+    }
+
+    public List<Boid> GetBoids()
+    {
+        List<Boid> results = new List<Boid>();
+
         foreach (Boid B in agents)
             results.Add(B);
 
         return results;
     }
 
-    public void Initialize(int count)
+    private void Start()
     {
-        for (int i = 0; i <= count; i++)
-        {
-            var go = new GameObject();
-
-            var bb = go.AddComponent<BoidBehaviour>();
-
-            var boid = ScriptableObject.CreateInstance<Boid>();
-
-            agents.Add(boid);
-
-            bb.SetMoveable(boid);
-        }
+        GetBoids();
+        Create(10);
+      
     }
 }

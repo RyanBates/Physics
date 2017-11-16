@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public interface IMoveable
 {
     Vector3 Update_Agent(float dt);
@@ -9,11 +8,7 @@ public interface IMoveable
 
 [CreateAssetMenu]
 public class Boid : Ryan.Agent, IMoveable
-{
-    Spawn s;
-    public GameObject go;
-
-
+{    
     public Vector3 Update_Agent(float deltaTime)
     {
         acceleration = force / mass;
