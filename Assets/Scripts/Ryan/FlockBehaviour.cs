@@ -10,11 +10,11 @@ public interface IFlockable
 
 public class FlockBehaviour : MonoBehaviour, IFlockable
 {
+    AgentFactory AF;
     BoidBehaviour BB;
 
     public List<Boid> Boids;
-
-
+    
     float kCohesion;
     float kDispersion;
     float kAlignment;
@@ -28,6 +28,8 @@ public class FlockBehaviour : MonoBehaviour, IFlockable
                 BB.SetMoveable(b);
             }
         return (b.cohesion - b.position) / 100;
+
+        
     }
 
     public Vector3 Dispersion(Boid b)
@@ -61,6 +63,7 @@ public class FlockBehaviour : MonoBehaviour, IFlockable
     void Update()
     {
         AgentFactory.GetBoids(Boids);
+        AF.Initialize(10);
 
         Vector3 v1, v2, v3;
 

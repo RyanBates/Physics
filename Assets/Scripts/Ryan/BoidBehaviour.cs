@@ -10,7 +10,7 @@ public class BoidBehaviour : AgentBehaviour
         moveable = mover;
     }
 
-    private void LateUpdate()
+    void LateUpdate()
     {
         transform.position = moveable.Update_Agent(Time.deltaTime);
     }
