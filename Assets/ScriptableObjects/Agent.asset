@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53395d9ed3791e24e92f578393d8617b, type: 3}
   m_Name: Agent
   m_EditorClassIdentifier: 
-  mass: 1
+  mass: 2
   max_speed: 50
   seperation: {x: 0, y: 0, z: 0}
   alignment: {x: 0, y: 0, z: 0}
