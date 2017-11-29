@@ -32,7 +32,7 @@ public class Boid : Ryan.Agent, IMoveable
 
     public bool AddForce(float a, Vector3 b)
     {
-        force += b * a;
+        force = b * a;
 
         return true;
     }

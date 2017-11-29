@@ -37,8 +37,6 @@ public class AgentFactory : MonoBehaviour
 
     public Vector3 Cohesion(Boid b)
     {
-        Vector3 c = new Vector3(0, 0, 0);
-
         foreach (Boid B in agents)
             if (B != b)
             {
