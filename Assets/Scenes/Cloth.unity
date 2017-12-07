@@ -451,6 +451,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 903700386}
+  - component: {fileID: 903700387}
   - component: {fileID: 903700385}
   m_Layer: 0
   m_Name: MakeCloth
@@ -467,10 +468,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 903700384}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b6c4c7078ccf1243bd0a015c324ec70, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ff3ce8a0c3bda640be07a90d1e0ad2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloth: {fileID: 1761775934729136, guid: 7d0bfb80dd999684e9ec44259102fb3f, type: 2}
+  game: {fileID: 1125547293973344, guid: 9f2785765857e03409e7dad57b47aabf, type: 2}
+  size: 5
 --- !u!4 &903700386
 Transform:
   m_ObjectHideFlags: 0
@@ -484,6 +486,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &903700387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 903700384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419cddb65ffb69041ad8a679da90db1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles: []
+  springDampers: []
 --- !u!1 &1301833284
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,7 +582,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1301833284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 10, y: -10, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
