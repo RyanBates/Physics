@@ -11,7 +11,7 @@ public class ParticleBehaviour : MonoBehaviour
         particle = new HooksLaw.Particle(transform.position, Vector3.zero, 1);
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         transform.position = particle.Update(Time.fixedDeltaTime);
     }

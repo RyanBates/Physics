@@ -2,49 +2,92 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class SpringDamperBehaviour : MonoBehaviour
 {
-    ClothSize cloth;
+    public GameObject game;
+    public float rows;
+    public float colms;
+
+    ParticleBehaviour pb;
     HooksLaw.SpringDamper Sd;
 
     HooksLaw.Particle p1;
     HooksLaw.Particle p2;
 
-    public List<ParticleBehaviour> particles;
+    public List<HooksLaw.Particle> particles;
     public List<HooksLaw.SpringDamper> springDampers;
-
-    void UpdateParticles(HooksLaw.Particle part1, HooksLaw.Particle part2)
-    {
-        Sd = new HooksLaw.SpringDamper(part1, part2, 5, .7f, 10);
-        springDampers.Add(Sd);
-    }
-
+    List<GameObject> Objects;
+    
     void Start()
     {
-        for (int i = 0; i < particles.Count - 1; i++)
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < colms; j++)
+            {
+                GameObject p = Instantiate(game, new Vector3(i * 2.5f, -j * 2.5f, 7), Quaternion.identity);
+                p.AddComponent<ParticleBehaviour>();
+                p.GetComponent<ParticleBehaviour>().particle = new HooksLaw.Particle(p.transform.position, Vector3.zero, 1);
+                gameObject.GetComponent<SpringDamperBehaviour>().particles.Add(p.GetComponent<ParticleBehaviour>().particle);
+                //Objects.Add(gameObject);
+            }
+
+        for (int i = 0; i < colms * rows; i++)
         {
-            p1 = particles[i].particle;
-            p2 = particles[i + 1].particle;
+            if (i % colms < colms - 1)
+            {
+                p1 = particles[i];
+                p2 = particles[i + 1];
 
-            if (!(i != 0) && (i + 1) % cloth.size == 0)
-                UpdateParticles(p1, p2);
-        }
+                springDampers.Add(new HooksLaw.SpringDamper(p1, p2, 10, .7f, 4));
+                p1.IsAnchor = true;
+            }
 
-        for (int i = 0; i <= particles.Count - 1; i++)
-        {
-            p1 = particles[i].particle;
-            p2 = particles[i + (int)cloth.size - 1].particle;
+            if (i < (colms * rows) - colms)
+            {
+                p1 = particles[i];
+                p2 = particles[i + (int)rows];
 
-            UpdateParticles(p1, p2);
+                springDampers.Add(new HooksLaw.SpringDamper(p1, p2, 10, .7f, 4));               
+            }
+
+            if (i < (colms * rows) - colms && i % colms < colms - 1)
+            {
+                int bottom = i + (int)rows;
+                int right = i + 1;
+
+                p1 = particles[right];
+                p2 = particles[bottom];
+
+                springDampers.Add(new HooksLaw.SpringDamper(p1, p2, 10, .7f, 4));
+            }
+
+            if (i < (colms * rows) - colms && i % colms < colms - 1)
+            {
+                int bottom = i + (int)colms;
+                int bottomright = bottom + 1;
+
+                p1 = particles[i];
+                p2 = particles[bottomright];
+
+                springDampers.Add(new HooksLaw.SpringDamper(p1, p2, 10, .7f, 4));
+            }
         }
     }
 
     void Update()
     {
-        foreach (HooksLaw.SpringDamper s in springDampers)
+        foreach (var p in particles)
         {
-            Sd.CalculateForce();
+            p.AddForce(new Vector3(0, -9.81f, 0));
+            p.Update(Time.deltaTime);
+            p.IsGravity = false;
+
+            foreach (var s in springDampers)
+            {
+                s.CalculateForce();
+            }
+
+            p.position = game.transform.position;
         }
+
     }
 }

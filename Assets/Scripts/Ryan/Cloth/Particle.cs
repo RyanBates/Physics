@@ -16,9 +16,9 @@ namespace HooksLaw
         public Vector3 velocity;
 
         [SerializeField]
-        bool IsGravity;
+        public bool IsGravity;
         [SerializeField]
-        bool IsAnchor;
+        public bool IsAnchor;
 
         [SerializeField]
         public float mass;
@@ -43,20 +43,19 @@ namespace HooksLaw
 
         public void AddForce(Vector3 f)
         {
-           force = f;
+            force = f;
         }
         
         // Update is called once per frame
         public Vector3 Update(float deltaTime)
         {
-            force = Vector3.zero;
+            //force = Vector3.zero;
 
             if (IsGravity)
                 AddForce(new Vector3(0, -9.81f, 0));
 
             if (IsAnchor)
                 return position;
-            
 
             acceleration = force / mass;
             velocity += acceleration * deltaTime;
@@ -69,13 +68,15 @@ namespace HooksLaw
     [System.Serializable]
     public class SpringDamper
     {
-        Particle _P1, _P2;
+        SpringDamperBehaviour SDB;
+
+        public Particle _P1, _P2;
         [SerializeField]
-        float _Ks;
+        public float _Ks;
         [SerializeField]
-        float _Lo;
+        public float _Lo;
         [SerializeField]
-        float _Kd;
+        public float _Kd;
         
 
         public SpringDamper()
@@ -113,7 +114,8 @@ namespace HooksLaw
 
             _P1.AddForce(F1);
             _P2.AddForce(F2);
-            Debug.DrawLine(_P1.position, _P2.position);
+
+            Debug.DrawLine(_P1.position, _P2.position, Color.cyan);
         }
     }
 }
