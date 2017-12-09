@@ -16,9 +16,9 @@ namespace HooksLaw
         public Vector3 velocity;
 
         [SerializeField]
-        public bool IsGravity;
+        public bool gravity;
         [SerializeField]
-        public bool IsAnchor;
+        public bool anchor;
 
         [SerializeField]
         public float mass;
@@ -51,10 +51,10 @@ namespace HooksLaw
         {
             //force = Vector3.zero;
 
-            if (IsGravity)
+            if (gravity)
                 AddForce(new Vector3(0, -9.81f, 0));
 
-            if (IsAnchor)
+            if (anchor)
                 return position;
 
             acceleration = force / mass;
@@ -68,8 +68,6 @@ namespace HooksLaw
     [System.Serializable]
     public class SpringDamper
     {
-        SpringDamperBehaviour SDB;
-
         public Particle _P1, _P2;
         [SerializeField]
         public float _Ks;
@@ -84,7 +82,7 @@ namespace HooksLaw
 
         }
 
-        public SpringDamper(Particle p1, Particle p2, float springConstant, float dampingFactor, float restLength)
+        public SpringDamper(Particle p1, Particle p2, float springConstant, float restLength, float dampingFactor)
         {
             _P1 = p1;
             _P2 = p2;
@@ -96,9 +94,9 @@ namespace HooksLaw
         public void CalculateForce()
         {
             //Convert 3D to 1D
-            Vector3 e = _P1.position - _P2.position;
+            Vector3 e = _P2.position - _P1.position;
             float l = Vector3.Magnitude(e);
-            Vector3 E = e.normalized / l;
+            Vector3 E = e / l;
 
             //Calculating 1D Velocities
             Vector3 v1 = _P1.velocity;
@@ -108,14 +106,13 @@ namespace HooksLaw
             float V2 = Vector3.Dot(E, v2);
 
             //Convert 1D to 3D
-            float Fsd = -_Ks * (_Lo - l) - _Kd * (V1 - V2);
+            float Fsd = _Ks * (_Lo - l) - _Kd * (V1 - V2);
             Vector3 F1 = Fsd * E;
-            Vector3 F2 = -F1;
 
             _P1.AddForce(F1);
-            _P2.AddForce(F2);
+            _P2.AddForce(-F1);
 
-            Debug.DrawLine(_P1.position, _P2.position, Color.cyan);
+            Debug.DrawLine(_P1.position, _P2.position, Color.red);
         }
     }
 }

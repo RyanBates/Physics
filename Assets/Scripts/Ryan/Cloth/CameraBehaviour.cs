@@ -41,7 +41,7 @@ public class CameraBehaviour : MonoBehaviour {
             transform.position += new Vector3(0,5,0) * Time.deltaTime;
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Mouse1))
         {
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
