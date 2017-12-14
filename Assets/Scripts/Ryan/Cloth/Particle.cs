@@ -43,7 +43,7 @@ namespace HooksLaw
 
         public void AddForce(Vector3 f)
         {
-            force = f;
+            force += f;
         }
         
         // Update is called once per frame
@@ -60,6 +60,7 @@ namespace HooksLaw
             acceleration = force / mass;
             velocity += acceleration * deltaTime;
             position += velocity * deltaTime;
+            force = Vector3.zero;
 
             return position;
         }
@@ -75,11 +76,16 @@ namespace HooksLaw
         public float _Lo;
         [SerializeField]
         public float _Kd;
-        
 
         public SpringDamper()
         {
 
+        }
+
+        public SpringDamper(Particle p1, Particle p2)
+        {
+            _P1 = p1;
+            _P2 = p2;
         }
 
         public SpringDamper(Particle p1, Particle p2, float springConstant, float restLength, float dampingFactor)
@@ -91,12 +97,12 @@ namespace HooksLaw
             _Lo = restLength;
         }
         
-        public void CalculateForce()
+        public void CalculateForce(float s, float r, float d)
         {
             //Convert 3D to 1D
-            Vector3 e = _P2.position - _P1.position;
+            Vector3 e = (_P2.position - _P1.position);
             float l = Vector3.Magnitude(e);            
-            Vector3 E = e.normalized / l;
+            Vector3 E = e / l;
 
             //Calculating 1D Velocities
             Vector3 v1 = _P1.velocity;
@@ -106,13 +112,18 @@ namespace HooksLaw
             float V2 = Vector3.Dot(E, v2);
 
             //Convert 1D to 3D
-            float Fsd = _Ks * (_Lo - l) - _Kd * (V1 - V2);
+            float Fsd = (-s * (r - l)) - (d * (V1 - V2));
+            if(Input.GetKey(KeyCode.Space))
+            {
+                Fsd = (s * (r - l)) - (d * (V1 - V2));
+            }
             Vector3 F1 = Fsd * E;
 
             _P1.AddForce(F1);
             _P2.AddForce(-F1);
 
             Debug.DrawLine(_P1.position, _P2.position, Color.red);
+
         }
     }
 }

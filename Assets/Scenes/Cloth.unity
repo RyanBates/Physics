@@ -479,10 +479,34 @@ MonoBehaviour:
   colms: 5
   drag: 1
   density: 1
-  constant: 5
-  damping: 5
-  rest: 10
-  wind: {x: 10, y: 10, z: 10}
+  constant: 10
+  damping: 10
+  rest: 2.5
+  wind: {x: 0, y: 0, z: 0}
+  p1:
+    force: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}
+    acceleration: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    gravity: 0
+    anchor: 0
+    mass: 5
+  p2:
+    force: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}
+    acceleration: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    gravity: 0
+    anchor: 0
+    mass: 5
+  p3:
+    force: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}
+    acceleration: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    gravity: 0
+    anchor: 0
+    mass: 5
   particles: []
   springDampers: []
   objects: []

@@ -14,7 +14,7 @@ public class SpringDamperBehaviour : MonoBehaviour
 
     public Vector3 wind;
 
-    HooksLaw.Particle p1, p2, p3;
+    public HooksLaw.Particle p1, p2, p3;
 
     HooksLaw.SpringDamper Sd;
 
@@ -24,7 +24,7 @@ public class SpringDamperBehaviour : MonoBehaviour
 
     public void CalculateWind(Vector3 w)
     {
-        Vector3 v = (p1.velocity + p2.velocity + p3.velocity) / 3 - w;
+        Vector3 v = ( p1.velocity + p2.velocity + p3.velocity) / 3 - w;
 
         Vector3 n = Vector3.Cross((p2.position - p1.position), (p3.position - p1.position)).normalized;
 
@@ -59,10 +59,9 @@ public class SpringDamperBehaviour : MonoBehaviour
             {
                 p1 = particles[i];
                 p2 = particles[i + 1];
-
-                springDampers.Add(new HooksLaw.SpringDamper(p1, p2, constant, rest, damping));
-                particles[i].anchor = false;
                 
+                Sd = new HooksLaw.SpringDamper(p1, p2);
+                springDampers.Add(Sd);
             }
 
             if (i < (colms * rows) - colms)
@@ -70,8 +69,8 @@ public class SpringDamperBehaviour : MonoBehaviour
                 p1 = particles[i];
                 p2 = particles[i + (int)rows];
 
-                springDampers.Add(new HooksLaw.SpringDamper(p1, p2, constant, rest, damping));
-
+                Sd = new HooksLaw.SpringDamper(p1, p2);
+                springDampers.Add(Sd);
             }
 
             if (i < (colms * rows) - colms && i % colms < colms - 1)
@@ -82,8 +81,8 @@ public class SpringDamperBehaviour : MonoBehaviour
                 p1 = particles[right];
                 p2 = particles[bottom];
 
-                springDampers.Add(new HooksLaw.SpringDamper(p1, p2, constant, rest, damping));
-
+                Sd = new HooksLaw.SpringDamper(p1, p2);
+                springDampers.Add(Sd);
             }
 
             if (i < (colms * rows) - colms && i % colms < colms - 1)
@@ -94,24 +93,23 @@ public class SpringDamperBehaviour : MonoBehaviour
                 p1 = particles[i];
                 p2 = particles[bottomright];
 
-                springDampers.Add(new HooksLaw.SpringDamper(p1, p2, constant, rest, damping));
-
+                Sd = new HooksLaw.SpringDamper(p1, p2);
+                springDampers.Add(Sd);
             }
+            
         }
     }
     
     void Update()
     {
-        foreach (var s in springDampers)
-            s.CalculateForce();
-
-
         foreach (var p in particles)
             if (p.gravity == true)
             {
                 p.Update(Time.deltaTime);
                 for (int i = 0; i < particles.Count - (int)colms; i++)
                 {
+                    particles[0].anchor = true;
+
                     p1 = particles[i];
                     p2 = particles[i + 1];
                     p3 = particles[i + (int)colms];
@@ -120,15 +118,15 @@ public class SpringDamperBehaviour : MonoBehaviour
                     p2.position = objects[i + 1].transform.position;
                     p3.position = objects[i + (int)colms].transform.position;
 
-                    p1.anchor = true;
+                    p1.anchor = false;
                     p2.anchor = true;
                     p3.anchor = false;
 
-                    CalculateWind(wind);
+                   CalculateWind(wind);
                 }
-
             }
-            
-        
+
+        foreach (var s in springDampers)
+            s.CalculateForce(20, 10, 8);
     }
 }
