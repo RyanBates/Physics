@@ -5,11 +5,6 @@ public class ParticleBehaviour : MonoBehaviour
 {
     public HooksLaw.Particle particle;
 
-    
-    void Start()
-    {
-        particle = new HooksLaw.Particle(transform.position, Vector3.zero, 1);
-    }
 
     public void FixedUpdate()
     {

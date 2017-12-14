@@ -95,8 +95,8 @@ namespace HooksLaw
         {
             //Convert 3D to 1D
             Vector3 e = _P2.position - _P1.position;
-            float l = Vector3.Magnitude(e);
-            Vector3 E = e / l;
+            float l = Vector3.Magnitude(e);            
+            Vector3 E = e.normalized / l;
 
             //Calculating 1D Velocities
             Vector3 v1 = _P1.velocity;
