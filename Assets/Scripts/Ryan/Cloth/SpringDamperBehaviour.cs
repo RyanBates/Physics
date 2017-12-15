@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpringDamperBehaviour : MonoBehaviour
 {
@@ -10,11 +11,13 @@ public class SpringDamperBehaviour : MonoBehaviour
     public float drag = 1;
     public float density = 1;
 
-    public float constant, damping, rest;
+    public float spring, damping, rest;
 
     public Vector3 wind;
 
-    public HooksLaw.Particle p1, p2, p3;
+    public Slider Wind_x, Wind_y, Wind_z;
+
+    HooksLaw.Particle p1, p2, p3;
 
     HooksLaw.SpringDamper Sd;
 
@@ -44,7 +47,7 @@ public class SpringDamperBehaviour : MonoBehaviour
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < colms; j++)
             {
-                GameObject p = Instantiate(game, new Vector3(i * 2.5f, -j * 2.5f, 7), Quaternion.identity);
+                GameObject p = Instantiate(game, new Vector3(i * 5, -j * 5, 7), Quaternion.identity);
                 p.AddComponent<ParticleBehaviour>();
                 p.GetComponent<ParticleBehaviour>().particle = new HooksLaw.Particle(p.transform.position, Vector3.zero, 1);
                 gameObject.GetComponent<SpringDamperBehaviour>().particles.Add(p.GetComponent<ParticleBehaviour>().particle);
@@ -127,6 +130,18 @@ public class SpringDamperBehaviour : MonoBehaviour
             }
 
         foreach (var s in springDampers)
-            s.CalculateForce(20, 10, 8);
+            s.CalculateForce(spring, rest, damping);
+
+        Wind_x.minValue = -10;
+        Wind_x.maxValue = 10;
+        wind.x = Wind_x.value;
+
+        Wind_y.minValue = -10;
+        Wind_y.maxValue = 10;
+        wind.y = Wind_y.value;
+
+        Wind_z.minValue = -10;
+        Wind_z.maxValue = 10;
+        wind.z = Wind_z.value;
     }
 }

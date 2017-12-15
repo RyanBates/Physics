@@ -108,8 +108,8 @@ namespace HooksLaw
             Vector3 v1 = _P1.velocity;
             Vector3 v2 = _P2.velocity;
 
-            float V1 = Vector3.Dot(E, v1);
-            float V2 = Vector3.Dot(E, v2);
+            float V1 = Vector3.Dot(E.normalized, v1);
+            float V2 = Vector3.Dot(E.normalized, v2);
 
             //Convert 1D to 3D
             float Fsd = (-s * (r - l)) - (d * (V1 - V2));
