@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Cloth.unity
     guid: db1583be6d019d94e8f23b1d6debaa6a
+  - enabled: 1
+    path: Assets/Scenes/Tower.unity
+    guid: cf1f9619de9e88e4c9417bdd2adbe283
